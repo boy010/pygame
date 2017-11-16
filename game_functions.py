@@ -2,23 +2,40 @@ import sys
 import pygame
 
 
+def check_keydown_events(event, ship):
+    '''响应按键按下'''
+    if event.key == pygame.K_RIGHT:
+        ship.moving_right = True
+    elif event.key == pygame.K_LEFT:
+        ship.moving_left = True
+
+def check_keyup_events(event, ship):
+    '''响应按键松开'''
+    if event.key == pygame.K_RIGHT:
+        ship.moving_right = False
+    elif event.key == pygame.K_LEFT:
+        ship.moving_left = False
+
 def check_events(ship):
+    '''响应按键和鼠标事件'''
     for event in pygame.event.get():
         if event.type == pygame.QUIT:  # 表示单击游戏窗口的关闭按钮
             sys.exit()
         elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_RIGHT:  #注意这里不是event.type, 而是event.key
-                # 向右移动飞船
-                # ship.rect.centerx += 1
-                ship.moving_right  = True
-            elif event.key == pygame.K_LEFT:
-                ship.moving_left = True
+            check_keydown_events(event, ship)
+            # if event.key == pygame.K_RIGHT:  #注意这里不是event.type, 而是event.key
+            #     # 向右移动飞船
+            #     # ship.rect.centerx += 1
+            #     ship.moving_right  = True
+            # elif event.key == pygame.K_LEFT:
+            #     ship.moving_left = True
 
         elif event.type == pygame.KEYUP:
-            if event.key == pygame.K_RIGHT:
-                ship.moving_right = False
-            elif event.key == pygame.K_LEFT:
-                ship.moving_left = False
+            check_keyup_events(event, ship)
+            # if event.key == pygame.K_RIGHT:
+            #     ship.moving_right = False
+            # elif event.key == pygame.K_LEFT:
+            #     ship.moving_left = False
 
 def update_screen(ai_settings, screen, ship):
     '''更新屏幕的图像，并切换到新屏幕'''
