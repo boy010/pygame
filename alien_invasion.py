@@ -32,6 +32,8 @@ def run_game():
         #将以上监控事件动作放到game_funcitons.py中
         gf.check_events(ship)
 
+        ship.update()
+
         # screen.fill(bg_color)  # 用背景色填充屏幕，每次循环都重绘屏幕
         # screen.fill(ai_settings.bg_color)  # 用背景色填充屏幕，每次循环都重绘屏幕
         # ship.blitme()
