@@ -2,6 +2,7 @@
 
 # import sys  #为退出游戏使用 , commented due to move to module game_function.py
 import pygame
+from pygame.sprite import Group
 
 from settings import Settings
 from ship import Ship
@@ -22,6 +23,9 @@ def run_game():
     #创建一艘飞船
     ship = Ship(ai_settings, screen)
 
+    #创建一个用于存储子弹的编组
+    bullets = Group()
+
     # 开始游戏的主循环
     while True:
         #监视键盘和鼠标事件
@@ -30,16 +34,18 @@ def run_game():
         #         sys.exit()
         
         #将以上监控事件动作放到game_funcitons.py中
-        gf.check_events(ship)
+        # gf.check_events(ship)
+        gf.check_events(ai_settings, screen, ship, bullets)
 
         ship.update()
+        bullets.update()
 
         # screen.fill(bg_color)  # 用背景色填充屏幕，每次循环都重绘屏幕
         # screen.fill(ai_settings.bg_color)  # 用背景色填充屏幕，每次循环都重绘屏幕
         # ship.blitme()
         #
         # pygame.display.flip() # 让最近绘制的屏幕可见，并擦去旧屏幕
-        gf.update_screen(ai_settings, screen, ship)
+        gf.update_screen(ai_settings, screen, ship, bullets)
 
 run_game()
 
