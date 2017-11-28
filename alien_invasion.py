@@ -40,6 +40,12 @@ def run_game():
         ship.update()
         bullets.update()
 
+        #删除已经消失的子弹
+        for bullet in bullets.copy():
+        	if bullet.rect.bottom <= 0:
+        		bullets.remove(bullet)
+        	# print(len(bullets))  # 用来检查子弹有没有被删除掉
+
         # screen.fill(bg_color)  # 用背景色填充屏幕，每次循环都重绘屏幕
         # screen.fill(ai_settings.bg_color)  # 用背景色填充屏幕，每次循环都重绘屏幕
         # ship.blitme()
