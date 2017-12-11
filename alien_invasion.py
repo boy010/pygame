@@ -38,12 +38,12 @@ def run_game():
         gf.check_events(ai_settings, screen, ship, bullets)
 
         ship.update()
-        bullets.update()
+        # bullets.update()
 
-        #删除已经消失的子弹
-        for bullet in bullets.copy():
-        	if bullet.rect.bottom <= 0:
-        		bullets.remove(bullet)
+        # #删除已经消失的子弹
+        # for bullet in bullets.copy():
+        # 	if bullet.rect.bottom <= 0:
+        # 		bullets.remove(bullet)
         # print(len(bullets))  # 用来检查子弹有没有被删除掉  #调试使用，之后删除这条，否则影响速度
 
         # screen.fill(bg_color)  # 用背景色填充屏幕，每次循环都重绘屏幕
@@ -51,6 +51,8 @@ def run_game():
         # ship.blitme()
         #
         # pygame.display.flip() # 让最近绘制的屏幕可见，并擦去旧屏幕
+        gf.update_bullets(bullets)
+
         gf.update_screen(ai_settings, screen, ship, bullets)
 
 run_game()
