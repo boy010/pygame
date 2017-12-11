@@ -11,9 +11,10 @@ def check_keydown_events(event, ai_settings, screen, ship, bullets):
     elif event.key == pygame.K_LEFT:
         ship.moving_left = True
     elif event.key == pygame.K_SPACE:
-    	#创建一颗子弹，并将其加入到编组bullets中
-    	new_bullet = Bullet(ai_settings, screen, ship)
-    	bullets.add(new_bullet)
+        if len(bullets) < ai_settings.bullets_allowed:
+            #创建一颗子弹，并将其加入到编组bullets中
+            new_bullet = Bullet(ai_settings, screen, ship)
+            bullets.add(new_bullet)
 
 def check_keyup_events(event, ship):
     '''响应按键松开'''
@@ -49,7 +50,7 @@ def update_screen(ai_settings, screen, ship, bullets):
     
     #在飞船和外星人后面重绘所有子弹
     for bullet in bullets.sprites():
-    	bullet.draw_bullet()
+        bullet.draw_bullet()
     ship.blitme()
 
     pygame.display.flip()  # 让最近绘制的屏幕可见，并擦去旧屏幕

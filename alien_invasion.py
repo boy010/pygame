@@ -44,7 +44,7 @@ def run_game():
         for bullet in bullets.copy():
         	if bullet.rect.bottom <= 0:
         		bullets.remove(bullet)
-        	# print(len(bullets))  # 用来检查子弹有没有被删除掉
+        # print(len(bullets))  # 用来检查子弹有没有被删除掉  #调试使用，之后删除这条，否则影响速度
 
         # screen.fill(bg_color)  # 用背景色填充屏幕，每次循环都重绘屏幕
         # screen.fill(ai_settings.bg_color)  # 用背景色填充屏幕，每次循环都重绘屏幕
