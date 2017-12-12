@@ -68,24 +68,34 @@ def get_number_aliens_x(ai_settings, alien_width):
     number_aliens_x = int(available_space_x / (2 * alien_width))
     return number_aliens_x
 
-def create_alien(ai_settings, screen, aliens, alien_number):
+def get_number_aliens_y(ai_settings,ship_height, alien_height):
+    '''计算屏幕可以容纳多少行的外星人'''
+    available_space_y = (ai_settings.screen_height - 
+                                (3 * alien_height) - ship_height) #计算公式用挂号括起来，确保每行不超过79字符
+    number_aliens_y = int(available_space_y / (2 * alien_height))
+    return number_aliens_y
+
+def create_alien(ai_settings, screen, aliens, alien_number, row_number):
     '''创建第一个外星人并将其加入当前行'''
     alien = Alien(ai_settings, screen)
     alien_width = alien.rect.width
     alien.x = alien_width + 2 * alien_width * alien_number
     alien.rect.x = alien.x
+    alien.rect.y = alien.rect.height + 2 * alien.rect.height * row_number
     aliens.add(alien)
 
-def create_fleet(ai_settings, screen, aliens):
+def create_fleet(ai_settings, screen, ship, aliens):
     """创建外星人群"""
     #创建一个外星人，并计算一行可以容纳多少个外星人
     #外星人间距为外星人宽度
     alien =  Alien(ai_settings, screen)  #创建一个外星人的实例
     # alien_width = alien.rect.width
     number_aliens_x = get_number_aliens_x(ai_settings, alien.rect.width)
+    number_rows = get_number_aliens_y(ai_settings, ship.rect.height, alien.rect.height)
 
     #创建第一个外星人
-    for alien_number in range(number_aliens_x):
-        create_alien(ai_settings, screen, aliens, alien_number)
+    for row_number in range(number_rows):
+        for alien_number in range(number_aliens_x):
+            create_alien(ai_settings, screen, aliens, alien_number, row_number)
         
         
