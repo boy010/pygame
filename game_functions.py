@@ -55,13 +55,17 @@ def update_bullets(ai_settings, screen, ship, aliens, bullets):
         if bullet.rect.bottom <= 0:
             bullets.remove(bullet)
 
+    check_bullet_alien_collisions(ai_settings, screen, ship, aliens, bullets)
+
+def check_bullet_alien_collisions(ai_settings, screen, ship, aliens, bullets):
+    '''响应子弹和外星人的碰撞'''
     #检查是否有子弹击中外星人，如果击中，删除响应的子弹和外星人
-    collision = pygame.sprite.groupcollide(bullets, aliens, True, True)
+    collisions = pygame.sprite.groupcollide(bullets, aliens, True, True)
 
     if len(aliens) == 0:
-    	#删除现有的子弹并新建一群外星人
-    	bullets.empty()
-    	create_fleet(ai_settings, screen, ship, aliens)
+        #删除现有的子弹并新建一群外星人
+        bullets.empty()
+        create_fleet(ai_settings, screen, ship, aliens)
 
 def fire_bullet(ai_settings, screen, ship, bullets):
     """如果还没到达极限，就发射一颗子弹"""
